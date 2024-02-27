@@ -1,6 +1,8 @@
 package com.prime.washer.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -8,32 +10,38 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
+    @NotNull(message = "First Name is mandatory")
     @Column(name = "first_name")
+    @Size(max = 20)
     private String firstName;
-
+    @NotNull(message = "Last Name is mandatory")
     @Column(name = "last_name")
+    @Size(max = 20)
     private String lastName;
-
-    @Column(name = "email_id")
+    @NotNull(message = "Email is mandatory")
+    @Column(name = "email_id", unique = true)
     private String emailId;
-
+    @NotNull(message = "Password is mandatory")
     @Column(name = "password")
     private String password;
-
+    @NotNull(message = "Phone Number is mandatory")
     @Column(name = "ph_number")
     private Long phNumber;
+
+    @Column(name = "booked")
+    private boolean booked;
 
     public Users() {
     }
 
-    public Users(String firstName, String lastName, String emailId, String password, Long phNumber) {
+    public Users(String firstName, String lastName, String emailId, String password, Long phNumber, Boolean booked) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailId = emailId;
         this.password = password;
         this.phNumber = phNumber;
+        this.booked = booked;
     }
 
     public long getId() {
@@ -82,5 +90,13 @@ public class Users {
 
     public void setPhNumber(Long phNumber) {
         this.phNumber = phNumber;
+    }
+
+    public boolean isBooked() {
+        return booked;
+    }
+
+    public void setBooked(boolean booked) {
+        this.booked = booked;
     }
 }
