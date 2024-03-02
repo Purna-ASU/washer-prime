@@ -27,21 +27,20 @@ public class Users {
     @NotNull(message = "Phone Number is mandatory")
     @Column(name = "ph_number")
     private Long phNumber;
-
-    @Column(name = "booked")
-    private boolean booked;
+    @ManyToOne
+    @JoinColumn(name = "time_slot_id")
+    private TimeSlots selectedTimeSlot;
 
     public Users() {
     }
 
-    public Users(String firstName, String lastName, String emailId, String password, Long phNumber, Boolean booked) {
+    public Users(String firstName, String lastName, String emailId, String password, Long phNumber) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailId = emailId;
         this.password = password;
         this.phNumber = phNumber;
-        this.booked = booked;
     }
 
     public long getId() {
@@ -92,11 +91,12 @@ public class Users {
         this.phNumber = phNumber;
     }
 
-    public boolean isBooked() {
-        return booked;
+    public TimeSlots getSelectedTimeSlot() {
+        return selectedTimeSlot;
     }
 
-    public void setBooked(boolean booked) {
-        this.booked = booked;
+    public void setSelectedTimeSlot(TimeSlots selectedTimeSlot) {
+        this.selectedTimeSlot = selectedTimeSlot;
     }
+
 }
