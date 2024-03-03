@@ -2,6 +2,7 @@ package com.prime.washer.controller;
 
 import com.prime.washer.model.Users;
 import com.prime.washer.repository.UserRepository;
+import com.prime.washer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,8 @@ public class UsersController {
 
     @Autowired
     private UserRepository usersRepository;
+    @Autowired
+    private UserService userService;
 
     @PostMapping("/add")
     public Users addUser(@RequestBody Users user) {
@@ -38,6 +41,7 @@ public class UsersController {
 
     @PostMapping("/book/{userId}/{timeSlotId}")
     public ResponseEntity<?> bookTimeSlot(@PathVariable Long userId, @PathVariable Long timeSlotId) {
-
+        userService.bookTimeSlot(userId, timeSlotId);
+        return ResponseEntity.ok().build();
     }
 }
